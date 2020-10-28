@@ -45,4 +45,17 @@ async def on_member_remove(member):
     channel = bot.get_channel(768746759278297089) # Change with your channel id
     await channel.send(msg)
 
+# Kick command
+@bot.command(name='kick', help='Command to Kick a Member can be used by Admin only.')
+@commands.has_guild_permissions(administrator=True)
+async def kick(ctx, member : discord.Member, *, reason='Not Specified'):
+    await member.kick(reason=reason)
+    await ctx.send(f'{member.mention} has been kicked from the Server.')
+
+# Kick command error handling
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.CommandError):
+        await ctx.send(error)
+
 bot.run(TOKEN)
