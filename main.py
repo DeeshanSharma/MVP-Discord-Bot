@@ -58,4 +58,11 @@ async def kick_error(ctx, error):
     if isinstance(error, commands.CommandError):
         await ctx.send(error)
 
+# Ban command
+@bot.command(name='ban', help='Command to Ban a Member can be useed by Admin only.')
+@commands.has_guild_permissions(administrator=True)
+async def ban(ctx, member : discord.Member, *, reason='Not Specified'):
+    await member.ban(reason=reason)
+    await ctx.send(f'{member.mention} has been banned from the Server.')
+
 bot.run(TOKEN)
