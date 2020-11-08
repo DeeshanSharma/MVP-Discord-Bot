@@ -65,4 +65,10 @@ async def ban(ctx, member : discord.Member, *, reason='Not Specified'):
     await member.ban(reason=reason)
     await ctx.send(f'{member.mention} has been banned from the Server.')
 
+# Ban command error handling
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.CommandError):
+        await ctx.send(error)
+
 bot.run(TOKEN)
