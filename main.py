@@ -71,4 +71,13 @@ async def ban_error(ctx, error):
     if isinstance(error, commands.CommandError):
         await ctx.send(error)
 
+# Message cleaning command
+@bot.command(name='clean', help='Used to clear the messages of a particular channel (max 100) can be used by Moderators')
+# @commands.has_permissions(manage_messsage=True)
+async def clean(ctx, number):
+    number = int(number)
+    msgs = await ctx.channel.history(limit=number).flatten()
+    await ctx.channel.delete_messages(msgs)
+    await ctx.send(f'Deleted {number} messages.', delete_after=3)
+
 bot.run(TOKEN)
