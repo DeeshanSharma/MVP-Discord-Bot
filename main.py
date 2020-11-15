@@ -80,4 +80,10 @@ async def clean(ctx, number):
     await ctx.channel.delete_messages(msgs)
     await ctx.send(f'Deleted {number} messages.', delete_after=3)
 
+# Clean command error handling
+@clean.error
+async def clean_error(ctx, error):
+    if isinstance(error, commands.CommandError):
+        await ctx.send(error)
+
 bot.run(TOKEN)
