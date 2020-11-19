@@ -38,6 +38,20 @@ async def on_member_join(member):
     await channel.send(msg, embed=embed)
     await member.send(dm)
 
+# Mute Command
+@bot.command(name='mute', help='Command to mute the user for x durations can be used by Admins & Mods')
+async def mute(ctx, member : discord.Member):
+    mute_role = member.guild.get_role(771379412360495125) # Change with your mute role id
+    member_roles = []
+    temp = member.roles
+    for i in temp:
+        member_roles.append(i)
+        print(i)
+    await member.remove_roles(member_roles[1:])
+    await member.add_roles(mute_role)
+    print(member_roles)
+    print(type(member_roles))
+
 # Leaving Log for the server members
 @bot.event
 async def on_member_remove(member):
